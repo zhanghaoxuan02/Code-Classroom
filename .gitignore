@@ -50,9 +50,8 @@ uploads/
 netdisk/
 blog_files/
 
-# --- Packages / Dependencies (use pip install instead) ---
-packages/
-*.whl
+# --- Packages / Dependencies ---
+# packages/ is included for offline deployment (pip install --no-index --find-links packages/)
 *.egg
 
 # --- Logs ---
