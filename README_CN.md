@@ -50,11 +50,27 @@
 
 **Linux / macOS：**
 ```bash
-pip install fastapi uvicorn pydantic python-multipart
+# 联网安装
+pip install -r requirements.txt
+
+# 离线安装（无需联网，依赖包已内置在仓库中）
+pip install --no-index --find-links packages/ --find-links packages/linux_x86_64/ -r requirements.txt
+
+# 启动服务
 python server.py
 ```
 
 启动后打开 **http://localhost:8000**
+
+### 🔌 离线部署
+
+仓库的 `packages/` 目录已包含所有 Python 依赖（.whl 包），**完全断网环境**下也能运行：
+
+1. `git clone https://github.com/zhanghaoxuan02/Code-Classroom.git`
+2. `pip install --no-index --find-links packages/ [平台子目录] -r requirements.txt`
+3. `python server.py`
+
+全过程无需网络连接。
 
 ### 演示账号（密码均为 `password123`）
 

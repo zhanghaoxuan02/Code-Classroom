@@ -49,11 +49,27 @@ Double-click: scripts\start.bat
 
 **Linux / macOS:**
 ```bash
-pip install fastapi uvicorn pydantic python-multipart
+# Online (with internet)
+pip install -r requirements.txt
+
+# Offline (no internet needed, packages included in repo)
+pip install --no-index --find-links packages/ --find-links packages/linux_x86_64/ -r requirements.txt
+
+# Start server
 python server.py
 ```
 
 Then open **http://localhost:8000**
+
+### Offline Deployment
+
+The repo includes all Python dependencies in the `packages/` directory. For **air-gapped environments**, simply:
+
+1. Clone the repository
+2. Run `pip install --no-index --find-links packages/ [platform subdir] -r requirements.txt`
+3. Run `python server.py`
+
+No network connection required at any step.
 
 ### Demo Accounts (password: `password123`)
 
