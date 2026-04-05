@@ -1,0 +1,31 @@
+{
+  "title": "第2章 · 异步编程",
+  "description": "理解 Promise 和 async/await，告别回调地狱",
+  "chapters": [
+    {
+      "title": "什么是异步？",
+      "content": "JavaScript 是单线程的，但很多操作（网络请求、读文件、定时器）需要等待。\n\n「同步」= 一件事做完再做下一件（会卡住）\n「异步」= 提交任务后继续干别的，任务完成再回来处理结果\n\n就像去餐厅：\n• 同步：点餐后站在那等，菜好了再去坐\n• 异步：点餐后先去坐下，服务员端菜来了再吃",
+      "code": "console.log(\"开始\");\n\n// setTimeout 是异步的（1秒后执行）\nsetTimeout(() => {\n    console.log(\"1秒后\");\n}, 1000);\n\nconsole.log(\"结束\");\n\n// 输出顺序：开始 → 结束 → 1秒后",
+      "tip": "异步是 JavaScript 的核心特性，前端开发 90% 的「玄学问题」都跟异步有关。"
+    },
+    {
+      "title": "Promise：承诺模式",
+      "content": "Promise 代表一个「未来会完成的操作」，有三种状态：\n• pending（等待中）\n• fulfilled（成功）\n• rejected（失败）",
+      "code": "// 创建一个 Promise\nconst fetchData = () => {\n    return new Promise((resolve, reject) => {\n        setTimeout(() => {\n            const data = { name: \"小明\", score: 98 };\n            resolve(data);      // 成功：传递结果\n            // reject(\"网络错误\");  // 失败：传递错误\n        }, 1000);\n    });\n};\n\n// 使用 .then() 处理成功，.catch() 处理失败\nfetchData()\n    .then(data => {\n        console.log(\"获取成功：\", data);\n        return data.score * 2;  // 可以返回新值，传给下一个 .then\n    })\n    .then(doubled => console.log(\"双倍分数：\", doubled))\n    .catch(err => console.log(\"出错了：\", err));",
+      "tip": ".then() 可以链式调用（Promise Chain），每个 .then 的返回值会传给下一个 .then。"
+    },
+    {
+      "title": "async/await：更好读的异步",
+      "content": "async/await 是 Promise 的语法糖，让异步代码看起来像同步的：",
+      "code": "// 定义 async 函数\nasync function loadUserData(userId) {\n    try {\n        // await 等待 Promise 完成，就像「同步」一样\n        const response = await fetch(`/api/users/${userId}`);\n        const user = await response.json();\n        console.log(\"用户信息：\", user);\n        return user;\n    } catch (error) {\n        console.error(\"加载失败：\", error);\n    }\n}\n\n// 调用 async 函数（它本身也是 Promise）\nloadUserData(1).then(user => {\n    console.log(\"姓名：\", user.name);\n});\n\n// 或者在另一个 async 函数里 await\nasync function main() {\n    const user = await loadUserData(1);\n    console.log(user);\n}",
+      "tip": "await 只能在 async 函数内使用。用 try/catch 捕获异步错误，和同步代码一样直观。"
+    },
+    {
+      "title": "并发执行：Promise.all",
+      "content": "当多个异步操作互不依赖时，同时发起可以节省时间：",
+      "code": "async function loadAll() {\n    // ❌ 串行：总耗时 = 1s + 1s + 1s = 3s\n    const a = await fetchA();\n    const b = await fetchB();\n    const c = await fetchC();\n\n    // ✅ 并行：总耗时 ≈ max(1s, 1s, 1s) = 1s\n    const [a, b, c] = await Promise.all([\n        fetchA(),\n        fetchB(),\n        fetchC(),\n    ]);\n\n    console.log(a, b, c);\n}\n\n// Promise.allSettled：不管成功失败都等待所有完成\nconst results = await Promise.allSettled([p1, p2, p3]);\nresults.forEach(r => {\n    if (r.status === 'fulfilled') console.log('成功', r.value);\n    else console.log('失败', r.reason);\n});",
+      "tip": "Promise.all 中只要有一个失败就全部失败（快速失败）；Promise.allSettled 会等待全部完成。",
+      "quiz": "用 async/await 写一个函数，模拟「3秒后返回用户数据」，并在控制台打印。"
+    }
+  ]
+}

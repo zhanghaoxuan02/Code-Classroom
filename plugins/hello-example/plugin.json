@@ -1,0 +1,5 @@
+{
+    "name": "Hello World 示例插件",
+    "version": "1.0.0",
+    "description": "这是一个示例插件，演示 Code Classroom 的插件系统。它会添加一个 /api/plugins/hello 端点。"
+}

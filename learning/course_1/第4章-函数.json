@@ -1,0 +1,31 @@
+{
+  "title": "第4章 · 函数",
+  "description": "把代码打包成可复用的「小机器」——函数",
+  "chapters": [
+    {
+      "title": "什么是函数？",
+      "content": "函数就像一个「机器」：给它一些原材料（参数），它加工后给你一个结果（返回值）。\n\n• 把重复代码打包，避免复制粘贴\n• 代码结构清晰，一看函数名就知道干什么\n• 修改一处，全部生效",
+      "code": "# 没有函数：重复代码\nprint(\"===== 欢迎 =====\")\nprint(\"你好，小明\")\nprint(\"==================\")\n\nprint(\"===== 欢迎 =====\")\nprint(\"你好，小红\")\nprint(\"==================\")\n\n# 用函数：整洁多了\ndef greet(name):\n    print(\"===== 欢迎 =====\")\n    print(\"你好，\" + name)\n    print(\"==================\")\n\ngreet(\"小明\")\ngreet(\"小红\")",
+      "tip": "def 是「define（定义）」的缩写。函数名后面跟括号，括号里是参数，别忘了冒号！"
+    },
+    {
+      "title": "参数和返回值",
+      "content": "函数可以接收参数，也可以返回结果：",
+      "code": "# 有返回值的函数\ndef add(a, b):\n    result = a + b\n    return result   # 返回计算结果\n\nsum1 = add(3, 5)\nprint(sum1)  # 8\n\n# 默认参数（调用时可以不传）\ndef power(base, exp=2):   # exp 默认是 2\n    return base ** exp\n\nprint(power(3))      # 9（3的2次方）\nprint(power(3, 3))   # 27（3的3次方）",
+      "tip": "return 后面可以跟任何值，函数遇到 return 就立即结束并返回。不写 return 的函数默认返回 None。"
+    },
+    {
+      "title": "实战：阶乘函数",
+      "content": "阶乘：n! = 1 × 2 × 3 × ... × n\n\n5! = 120，10! = 3628800",
+      "code": "def factorial(n):\n    \"\"\"计算 n 的阶乘\"\"\"\n    if n == 0:          # 特殊情况：0! = 1\n        return 1\n    result = 1\n    for i in range(1, n+1):\n        result *= i     # result = result * i\n    return result\n\nprint(factorial(0))   # 1\nprint(factorial(5))   # 120\nprint(factorial(10))  # 3628800",
+      "tip": "三引号里的内容叫「文档字符串（docstring）」，用来说明函数的用途，是个好习惯！"
+    },
+    {
+      "title": "变量的作用域",
+      "content": "函数内部定义的变量，外部看不到；外部的变量，函数内部可以读取（但不能修改）：",
+      "code": "x = 100  # 全局变量\n\ndef test():\n    y = 200  # 局部变量，只在函数内有效\n    print(x)  # 可以读取全局变量\n    print(y)  # 200\n\ntest()\nprint(x)  # 100\n# print(y)  # ❌ 报错！y 在函数外不存在",
+      "tip": "尽量避免在函数里修改全局变量（用 global 关键字），这会让代码难以理解。",
+      "quiz": "写一个函数 is_even(n)，如果 n 是偶数返回 True，否则返回 False。"
+    }
+  ]
+}

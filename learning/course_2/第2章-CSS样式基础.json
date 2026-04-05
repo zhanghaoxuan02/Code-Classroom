@@ -1,0 +1,31 @@
+{
+  "title": "第2章 · CSS 样式",
+  "description": "给你的网页穿上漂亮的衣服",
+  "chapters": [
+    {
+      "title": "CSS 怎么写？",
+      "content": "CSS 有三种写法：\n\n① 内联样式（直接写在标签里）\n② 内部样式（写在 <style> 标签里）\n③ 外部样式（单独的 .css 文件）\n\n推荐用第②或③种，结构更清晰。",
+      "code": "<!-- 内联样式 -->\n<p style=\"color:red; font-size:20px;\">红色大字</p>\n\n<!-- 内部样式 -->\n<style>\n  p {\n    color: blue;\n    font-size: 16px;\n  }\n  .highlight {\n    background: yellow;\n  }\n</style>",
+      "tip": "CSS 选择器：标签名（p）选中所有 p 标签；.类名 选中某类；#id名 选中唯一元素。"
+    },
+    {
+      "title": "常用 CSS 属性",
+      "content": "记住这些，80% 的场景都够用：",
+      "code": "/* 文字 */\ncolor: red;               /* 文字颜色 */\nfont-size: 18px;          /* 字体大小 */\nfont-weight: bold;        /* 加粗 */\ntext-align: center;       /* 居中 */\n\n/* 背景 */\nbackground-color: #f0f0f0;\nbackground: url('图片.jpg');\n\n/* 间距 */\nmargin: 20px;             /* 外边距（元素和外面的距离） */\npadding: 10px;            /* 内边距（内容和边框的距离） */\n\n/* 边框 */\nborder: 1px solid #ccc;   /* 粗细 样式 颜色 */\nborder-radius: 8px;       /* 圆角 */\n\n/* 尺寸 */\nwidth: 300px;\nheight: 200px;",
+      "tip": "颜色可以用颜色名（red、blue）、十六进制（#ff0000）或 rgb(255,0,0)。"
+    },
+    {
+      "title": "盒子模型",
+      "content": "每个 HTML 元素都是一个「盒子」，由四部分组成（从里到外）：\n\n① content（内容）\n② padding（内边距）\n③ border（边框）\n④ margin（外边距）\n\n元素的实际宽度 = content + padding左右 + border左右",
+      "code": ".box {\n    width: 200px;\n    height: 100px;\n    padding: 20px;         /* 四边都是20px */\n    border: 2px solid red;\n    margin: 30px auto;     /* 上下30px，左右auto（水平居中）*/\n    background: #e0f7fa;\n    /* 推荐加这个，让宽高包含padding和border */\n    box-sizing: border-box;\n}",
+      "tip": "建议在 CSS 最开头加上 * { box-sizing: border-box; }，让所有元素的宽高计算更直观。"
+    },
+    {
+      "title": "Flexbox：现代布局神器",
+      "content": "Flexbox 是最好用的布局方式，让子元素自动排列：",
+      "code": ".container {\n    display: flex;              /* 开启 flex 布局 */\n    flex-direction: row;        /* 横向排列（默认） */\n    justify-content: center;    /* 主轴居中 */\n    align-items: center;        /* 交叉轴居中 */\n    gap: 20px;                  /* 子元素间距 */\n    flex-wrap: wrap;            /* 自动换行 */\n}\n\n/* 子元素 */\n.item {\n    flex: 1;    /* 平均分配剩余空间 */\n    min-width: 200px;\n}",
+      "tip": "justify-content 控制左右，align-items 控制上下（当 flex-direction 是 row 时）。",
+      "quiz": "用 Flexbox 把3个色块横向排列，中间有间距，整体水平垂直居中。"
+    }
+  ]
+}

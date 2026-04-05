@@ -1,0 +1,11 @@
+# Code Classroom - Python 依赖
+# 核心依赖
+fastapi>=0.100.0
+uvicorn[standard]>=0.23.0
+pydantic>=2.0.0
+python-multipart>=0.0.5
+
+# 以下为传递依赖（自动安装，也已内置于 packages/ 目录）
+# starlette, annotated-types, pydantic-core, typing-extensions, typing-inspection
+# click, h11, colorama, httptools, python-dotenv, pyyaml
+# watchfiles, websockets, anyio, idna, annotated-doc

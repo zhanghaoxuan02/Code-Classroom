@@ -1,0 +1,134 @@
+version: "3.9"
+
+env_file:
+  - .env
+
+services:
+  # ── MySQL 数据库 ─────────────────────────────────────
+  db:
+    image: mysql:8.0
+    container_name: codeclassroom-db
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: root_secret_123
+      MYSQL_DATABASE: code_classroom
+      MYSQL_USER: classroom
+      MYSQL_PASSWORD: classroom_pass
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./database/init.sql:/docker-entrypoint-initdb.d/01-schema.sql
+      - ./database/seed.sql:/docker-entrypoint-initdb.d/02-seed.sql
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-proot_secret_123"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  # ── Redis 消息队列 ──────────────────────────────────
+  redis:
+    image: redis:7-alpine
+    container_name: codeclassroom-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+
+  # ── PHP-FPM 后端 ─────────────────────────────────────
+  php-fpm:
+    build:
+      context: ./docker/php-fpm
+      dockerfile: Dockerfile
+    container_name: codeclassroom-php
+    restart: unless-stopped
+    volumes:
+      - ./backend:/var/www/html
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_started
+    env_file: .env
+    environment:
+      DB_HOST: db
+      REDIS_HOST: redis
+      APP_ENV: production
+      APP_DEBUG: "false"
+
+  # ── PHP Queue Worker (消费队列，执行业务任务) ────────
+  php-worker:
+    build:
+      context: ./docker/php-fpm
+      dockerfile: Dockerfile
+    container_name: codeclassroom-worker
+    restart: unless-stopped
+    volumes:
+      - ./backend:/var/www/html
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_started
+    env_file: .env
+    environment:
+      DB_HOST: db
+      REDIS_HOST: redis
+      APP_ENV: production
+      APP_DEBUG: "false"
+    command: ["php", "/var/www/html/worker.php"]
+
+  # ── Python 代码执行器 (FastAPI + nsjail) ────────────
+  executor:
+    build:
+      context: ./executor
+      dockerfile: Dockerfile
+    container_name: codeclassroom-executor
+    restart: unless-stopped
+    privileged: true  # nsjail 需要 privileged 模式
+    volumes:
+      - ./executor/app:/app
+      - sandbox_tmp:/tmp/sandbox
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_started
+    env_file: .env
+    environment:
+      DB_HOST: db
+      REDIS_HOST: redis
+      PYTHON_VERSION: "3.11"
+      NODE_VERSION: "20"
+    ports:
+      - "9000:9000"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  # ── Nginx 反向代理 + 静态文件 ──────────────────────
+  nginx:
+    image: nginx:1.25-alpine
+    container_name: codeclassroom-nginx
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
+      - ./frontend:/usr/share/nginx/html/static
+    depends_on:
+      - php-fpm
+      - executor
+
+volumes:
+  db_data:
+    driver: local
+  redis_data:
+    driver: local
+  sandbox_tmp:
+    driver: local

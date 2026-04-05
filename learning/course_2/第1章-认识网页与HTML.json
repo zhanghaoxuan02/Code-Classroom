@@ -1,0 +1,30 @@
+{
+  "title": "第1章 · 认识网页",
+  "description": "HTML 是什么？网页是怎么构成的？",
+  "chapters": [
+    {
+      "title": "浏览器怎么显示网页？",
+      "content": "你每天看的网页，其实是浏览器（Chrome/Edge/Firefox）读取一段「代码」后，渲染成漂亮页面的结果。\n\n这段代码分三层：\n• HTML：内容（文字、图片、链接）\n• CSS：样式（颜色、字体、布局）\n• JavaScript：交互（点击、动画、数据）\n\n就好像盖房子：HTML 是砖头，CSS 是装修，JavaScript 是电器。",
+      "tip": "学前端，先学 HTML 打地基，再学 CSS 装修，最后学 JS 让房子「动」起来。"
+    },
+    {
+      "title": "HTML 标签基础",
+      "content": "HTML 用「标签」来描述内容，标签成对出现（开始标签 + 结束标签）：",
+      "code": "<!DOCTYPE html>\n<html>\n<head>\n    <title>我的第一个网页</title>\n</head>\n<body>\n    <h1>大标题</h1>\n    <h2>中标题</h2>\n    <p>这是一段文字，可以很长很长。</p>\n    <a href=\"https://www.baidu.com\">点击跳转到百度</a>\n    <img src=\"图片地址\" alt=\"图片描述\">\n</body>\n</html>",
+      "tip": "标签不区分大小写，但建议全部小写。记住：大多数标签都有开始 <tag> 和结束 </tag>，img 是例外（自闭合）。"
+    },
+    {
+      "title": "常用标签速查",
+      "content": "记住这几个就够用了：\n\n• <h1>~<h6>：标题（数字越大越小）\n• <p>：段落\n• <a href=\"...\">：链接\n• <img src=\"...\">：图片\n• <ul><li>：无序列表（圆点）\n• <ol><li>：有序列表（数字）\n• <div>：区块（布局用）\n• <span>：行内区块（文字样式用）\n• <br>：换行\n• <strong>：加粗\n• <em>：斜体",
+      "code": "<ul>\n    <li>HTML</li>\n    <li>CSS</li>\n    <li>JavaScript</li>\n</ul>\n\n<p>学前端需要<strong>认真练习</strong>，不要只看不写！</p>",
+      "tip": "最好的学习方式是动手写！把代码复制到记事本，另存为 index.html，用浏览器打开试试。"
+    },
+    {
+      "title": "表单：收集用户信息",
+      "content": "登录框、搜索框、注册页面……都是用 <form> 表单做的：",
+      "code": "<form action=\"/submit\" method=\"post\">\n    <label>用户名：</label>\n    <input type=\"text\" name=\"username\" placeholder=\"请输入用户名\">\n    <br>\n    <label>密码：</label>\n    <input type=\"password\" name=\"password\">\n    <br>\n    <label>性别：</label>\n    <input type=\"radio\" name=\"gender\" value=\"male\"> 男\n    <input type=\"radio\" name=\"gender\" value=\"female\"> 女\n    <br>\n    <button type=\"submit\">提交</button>\n</form>",
+      "tip": "type=\"text\" 文本框，type=\"password\" 密码框，type=\"radio\" 单选，type=\"checkbox\" 多选。",
+      "quiz": "自己写一个简单的个人信息卡片页面：包含姓名、年龄、学校、一句话介绍，并加上你喜欢的一张图片。"
+    }
+  ]
+}

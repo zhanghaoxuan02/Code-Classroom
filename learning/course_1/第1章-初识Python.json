@@ -1,0 +1,42 @@
+{
+  "title": "第1章 · 初识 Python",
+  "description": "从零开始认识 Python，学会运行第一行代码",
+  "chapters": [
+    {
+      "title": "Python 是什么？",
+      "content": "Python 是一门非常适合初学者的编程语言，特点是：\n\n✅ 语法简单，读起来像英文\n✅ 功能强大，科学计算/网站/人工智能都能做\n✅ 世界上最流行的编程语言之一\n\n你现在学的，是很多程序员的「第一门语言」，也是数据科学家、AI 研究员的日常工具。",
+      "tip": "不要担心一开始看不懂，每个程序员都是从一行代码开始的。"
+    },
+    {
+      "title": "第一行代码：Hello, World!",
+      "content": "按照惯例，学编程的第一行代码是打印出「Hello, World!」。\n在 Python 中只需要一行：",
+      "code": "print(\"Hello, World!\")",
+      "tip": "print() 是 Python 的「打印」函数，括号里放你想输出的内容。注意引号要成对出现！"
+    },
+    {
+      "title": "变量：给数据起名字",
+      "content": "变量就像一个「标签」，贴在数据上，方便以后使用。\n\n比如我叫小明，年龄18岁，可以这样存储：",
+      "code": "name = \"小明\"\nage = 18\nprint(name)   # 输出：小明\nprint(age)    # 输出：18\nprint(\"我叫\", name, \"，今年\", age, \"岁\")",
+      "tip": "变量名不能以数字开头，不能有空格，区分大小写（name 和 Name 是不同的变量）。"
+    },
+    {
+      "title": "基本数据类型",
+      "content": "Python 中最常用的数据类型有三种：\n\n• 整数（int）：1、100、-5\n• 小数（float）：3.14、-0.5\n• 字符串（str）：\"你好\"、\"Python\"\n• 布尔值（bool）：True 或 False",
+      "code": "x = 10          # 整数\ny = 3.14        # 小数\nz = \"Python\"    # 字符串\nflag = True     # 布尔值\n\nprint(type(x))  # <class 'int'>\nprint(type(y))  # <class 'float'>\nprint(type(z))  # <class 'str'>",
+      "tip": "用 type() 函数可以查看变量的类型，调试时很有用。"
+    },
+    {
+      "title": "基本运算",
+      "content": "Python 支持各种数学运算：",
+      "code": "a = 10\nb = 3\n\nprint(a + b)   # 加法：13\nprint(a - b)   # 减法：7\nprint(a * b)   # 乘法：30\nprint(a / b)   # 除法：3.333...\nprint(a // b)  # 整除：3（去掉小数）\nprint(a % b)   # 取余：1（余数）\nprint(a ** b)  # 幂运算：1000（10的3次方）",
+      "tip": "// 整除和 % 取余在判断奇偶、分组时非常实用！"
+    },
+    {
+      "title": "接收用户输入",
+      "content": "用 input() 函数可以让程序等待用户输入内容：",
+      "code": "name = input(\"请输入你的名字：\")\nprint(\"你好，\" + name + \"！\")\n\n# 注意：input() 返回的永远是字符串\n# 如果要当数字用，需要转换：\nage = int(input(\"请输入年龄：\"))\nprint(\"10年后你\", age + 10, \"岁\")",
+      "tip": "input() 读取的所有内容都是「字符串」类型，如果要做数学运算，要先用 int() 或 float() 转换。",
+      "quiz": "如果用户输入了一个字母，int(input()) 会发生什么？试试看！"
+    }
+  ]
+}

@@ -1,0 +1,83 @@
+# ============================================================
+# Code Classroom - .gitignore
+# ============================================================
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# --- Virtual Environment ---
+venv/
+ENV/
+env/
+.venv/
+
+# --- IDE / Editor ---
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.pydevproject
+.settings/
+
+# --- Database (contains user data & password hashes) ---
+*.db
+data/
+database/
+
+# --- User uploads (privacy & size) ---
+uploads/
+netdisk/
+blog_files/
+
+# --- Packages / Dependencies (use pip install instead) ---
+packages/
+*.whl
+*.egg
+
+# --- Logs ---
+*.log
+err.txt
+logs/
+
+# --- OS files ---
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# --- Environment / Secrets ---
+.env
+.env.local
+*.secret
+config.local.*
+
+# --- Test / Debug scripts (not part of the project) ---
+check_reg.py
+test_reg.py
+
+# --- Temporary files ---
+*.tmp
+*.temp
+*.bak
+.cache/
+tmp/

@@ -1,0 +1,27 @@
+{
+  "title": "例题精讲",
+  "description": "通过三个经典例题掌握 JavaScript 的核心技巧：Hello World 入门、数组最大值计算、函数柯里化进阶。",
+  "chapters": [
+    {
+      "title": "例题1 · Hello, World!",
+      "content": "第一个程序永远是最简单的——在控制台输出「Hello, World!」。\n\n**学习目标**：\n- 了解 console.log() 的用法\n- 掌握字符串的书写\n- 体验 JavaScript 的即时执行",
+      "code": "// 在浏览器的IDE中运行\nconsole.log(\"Hello, World!\");\n\n// 也可以弹出对话框\nalert(\"Hello, World!\");",
+      "tip": "console.log() 是开发中最常用的调试工具，记得打开浏览器开发者工具（F12）查看输出。",
+      "quiz": "如果想输出带换行的多行文本，应该使用什么转义字符？"
+    },
+    {
+      "title": "例题2 · 数组最大值",
+      "content": "给定一个数字数组，找出其中的最大值。\n\n**方法一**：使用 Math.max() + 展开运算符（最简洁）\n**方法二**：使用 reduce() 累加器\n**方法三**：使用传统的 for 循环",
+      "code": "const arr = [3, 9, 2, 15, 7, 22, 1];\n\n// 方法1：Math.max + 展开运算符\nconst max1 = Math.max(...arr);\nconsole.log(max1);  // 22\n\n// 方法2：reduce\nconst max2 = arr.reduce((max, cur) => cur > max ? cur : max, -Infinity);\nconsole.log(max2);  // 22\n\n// 方法3：for 循环\nlet max3 = arr[0];\nfor (let i = 1; i < arr.length; i++) {\n    if (arr[i] > max3) max3 = arr[i];\n}\nconsole.log(max3);  // 22",
+      "tip": "如果数组为空，Math.max(...[]) 会返回 -Infinity，而 reduce 方法需要提供初始值避免报错。实际开发中记得做空数组判断。",
+      "quiz": "如何用一行代码找出数组中的最小值？"
+    },
+    {
+      "title": "例题3 · 函数柯里化（Currying）",
+      "content": "柯里化是将一个接受多个参数的函数转换成一系列只接受单个参数的函数的过程。\n\n**核心思想**：每次只传一个参数，返回一个新函数，直到参数收集完毕再执行。\n\n**经典示例**：实现一个 add 函数，支持 add(1)(2)(3) 或 add(1,2)(3) 等形式。",
+      "code": "// 基础柯里化：将 add(a,b,c) 转为 add(a)(b)(c)\nfunction curry(fn) {\n    return function curried(...args) {\n        if (args.length >= fn.length) {\n            return fn.apply(this, args);\n        } else {\n            return function(...nextArgs) {\n                return curried.apply(this, args.concat(nextArgs));\n            };\n        }\n    };\n}\n\n// 原始求和函数\nfunction sum(a, b, c) {\n    return a + b + c;\n}\n\nconst curriedSum = curry(sum);\nconsole.log(curriedSum(1)(2)(3));  // 6\nconsole.log(curriedSum(1, 2)(3));  // 6\nconsole.log(curriedSum(1)(2, 3));  // 6\n\n// 进阶：无限柯里化（累加）\nfunction add(...args) {\n    const sum = args.reduce((a, b) => a + b, 0);\n    const inner = (...next) => add(sum, ...next);\n    inner.valueOf = () => sum;  // 用于隐式转换\n    return inner;\n}\n\nconsole.log(add(1)(2)(3).valueOf());   // 6\nconsole.log(add(1,2)(3,4)(5).valueOf()); // 15",
+      "tip": "柯里化可以使函数更灵活，常用于参数复用、延迟计算。但过度使用会降低可读性，根据场景权衡。",
+      "quiz": "实现一个 multiply(2)(3)(4) 返回 24 的柯里化函数，要求不限制参数个数。"
+    }
+  ]
+}

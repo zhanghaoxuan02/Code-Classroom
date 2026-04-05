@@ -1,0 +1,36 @@
+{
+  "title": "第3章 · 循环",
+  "description": "让程序重复做一件事：for 循环和 while 循环",
+  "chapters": [
+    {
+      "title": "为什么需要循环？",
+      "content": "假设你要打印1到100，难道要写100行 print 吗？\n\n当然不！用循环可以让程序自动重复执行，省时省力：",
+      "code": "# 没有循环：\n# print(1)\n# print(2)\n# ... 100行 ...\n\n# 用循环，只需要3行：\nfor i in range(1, 101):\n    print(i)",
+      "tip": "range(1, 101) 生成 1~100 的数字序列（注意：101 不包含在内）。"
+    },
+    {
+      "title": "for 循环基础",
+      "content": "for 循环用来「遍历」一个序列中的每个元素：",
+      "code": "# 遍历数字\nfor i in range(5):   # i = 0,1,2,3,4\n    print(\"第\", i+1, \"次循环\")\n\n# 遍历列表\nfruits = [\"苹果\", \"香蕉\", \"橙子\"]\nfor fruit in fruits:\n    print(\"我喜欢吃\", fruit)\n\n# 遍历字符串\nfor char in \"Python\":\n    print(char)",
+      "tip": "range(n) 从 0 开始到 n-1；range(a, b) 从 a 到 b-1；range(a, b, step) 还可以指定步长。"
+    },
+    {
+      "title": "while 循环",
+      "content": "while 循环：只要条件为 True，就一直循环。",
+      "code": "# 用 while 数到10\ncount = 1\nwhile count <= 10:\n    print(count)\n    count += 1  # 等同于 count = count + 1\n\n# 猜数字游戏\nsecret = 7\nwhile True:\n    guess = int(input(\"猜一个1-10的数字：\"))\n    if guess == secret:\n        print(\"猜对了！\")\n        break   # 跳出循环\n    elif guess < secret:\n        print(\"太小了\")\n    else:\n        print(\"太大了\")",
+      "tip": "while True 会无限循环，一定要配合 break 使用，否则程序永远不会结束！"
+    },
+    {
+      "title": "break 和 continue",
+      "content": "• break：立即跳出整个循环\n• continue：跳过本次循环，继续下一次",
+      "code": "# 找到第一个偶数就停止\nfor i in range(1, 20, 3):   # 1,4,7,10,13,16,19\n    if i % 2 == 0:\n        print(\"找到偶数：\", i)\n        break\n    print(\"奇数：\", i)\n\n# 跳过所有奇数，只打印偶数\nfor i in range(10):\n    if i % 2 != 0:\n        continue   # 跳过奇数\n    print(i)  # 只打印 0,2,4,6,8",
+      "quiz": "用 for 循环计算 1+2+3+...+100 的结果，应该怎么写？"
+    },
+    {
+      "title": "实战：九九乘法表",
+      "content": "嵌套循环（循环里套循环）最经典的例子：",
+      "code": "# 打印九九乘法表\nfor i in range(1, 10):      # 外层：行 1~9\n    for j in range(1, i+1): # 内层：列 1~i\n        print(f\"{j}x{i}={i*j}\", end=\" \")  # end=\" \" 表示不换行\n    print()  # 外层循环每次换行",
+      "tip": "f\"...\" 是 f-string，可以在字符串里直接嵌入变量，用 {} 包裹变量名。这是现代 Python 最常用的字符串格式化方式。"
+    }
+  ]
+}

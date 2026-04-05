@@ -1,0 +1,31 @@
+{
+  "title": "第2章 · 条件判断",
+  "description": "用 if/elif/else 让程序做出不同的选择",
+  "chapters": [
+    {
+      "title": "什么是条件判断？",
+      "content": "生活中到处都是「如果...那么...否则...」的逻辑：\n\n「如果今天下雨，就带伞；否则就不带。」\n\n在 Python 里用 if / else 来表达这种逻辑：",
+      "code": "weather = \"雨天\"\n\nif weather == \"雨天\":\n    print(\"记得带伞 ☂️\")\nelse:\n    print(\"好天气，不用带伞 ☀️\")",
+      "tip": "注意：if 后面的冒号「:」不能少！里面的代码必须缩进（按一次 Tab 键或4个空格）。"
+    },
+    {
+      "title": "比较运算符",
+      "content": "判断条件时，我们用这些符号比较两个值：",
+      "code": "x = 10\n\nprint(x == 10)   # True：等于\nprint(x != 5)    # True：不等于\nprint(x > 8)     # True：大于\nprint(x < 8)     # False：小于\nprint(x >= 10)   # True：大于等于\nprint(x <= 9)    # False：小于等于",
+      "tip": "注意区分「==」（比较是否相等）和「=」（赋值），这是初学者最容易出错的地方！"
+    },
+    {
+      "title": "多个条件：elif",
+      "content": "如果有多种情况，用 elif（else if 的缩写）：",
+      "code": "score = int(input(\"输入成绩：\"))\n\nif score >= 90:\n    print(\"优秀 🏆\")\nelif score >= 80:\n    print(\"良好 👍\")\nelif score >= 70:\n    print(\"中等 😊\")\nelif score >= 60:\n    print(\"及格 ✅\")\nelse:\n    print(\"不及格，继续努力 💪\")",
+      "tip": "elif 从上到下依次判断，满足哪个就执行哪个，之后的都跳过。"
+    },
+    {
+      "title": "逻辑运算：and / or / not",
+      "content": "多个条件可以组合使用：",
+      "code": "age = 20\nhave_id = True\n\n# and：两个条件都为 True 才为 True\nif age >= 18 and have_id:\n    print(\"可以进入\")\n\n# or：只要有一个为 True 就为 True\nif age < 10 or age > 60:\n    print(\"需要特殊照顾\")\n\n# not：取反\nif not have_id:\n    print(\"请出示证件\")",
+      "tip": "and = 并且，or = 或者，not = 不是。想想中文意思就容易记了！",
+      "quiz": "如果 age = 15，have_id = True，上面哪些 print 会执行？"
+    }
+  ]
+}

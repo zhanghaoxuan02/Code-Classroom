@@ -1,0 +1,36 @@
+{
+  "title": "第1章 · JS 进阶起步",
+  "description": "ES6+ 新语法让代码更简洁优雅",
+  "chapters": [
+    {
+      "title": "let / const 替代 var",
+      "content": "ES6 引入了 let 和 const，比老的 var 更安全、更好理解：\n\n• const：常量，不可重新赋值（优先用这个）\n• let：变量，可以重新赋值\n• var：不推荐，有很多历史问题（作用域提升）",
+      "code": "const PI = 3.14159;      // 常量，不会变\nlet count = 0;            // 变量，会变\n\ncount = 1;  // OK\n// PI = 3;  // ❌ 报错！const 不能重新赋值\n\n// const 对象/数组的内容可以改，引用不能改\nconst user = { name: \"小明\" };\nuser.name = \"小红\";  // OK，修改属性\n// user = {};  // ❌ 不能重新赋值",
+      "tip": "原则：能用 const 就用 const；需要改变时才用 let；尽量不用 var。"
+    },
+    {
+      "title": "箭头函数",
+      "content": "箭头函数是 function 的简写，更简洁：",
+      "code": "// 传统函数\nfunction add(a, b) {\n    return a + b;\n}\n\n// 箭头函数（等价）\nconst add = (a, b) => a + b;  // 单行可省略 return 和 {}\n\n// 只有一个参数可省略括号\nconst double = x => x * 2;\n\n// 多行还是要加 {}\nconst greet = (name) => {\n    const msg = \"你好，\" + name;\n    return msg;\n};\n\nconsole.log(add(3, 5));    // 8\nconsole.log(double(4));   // 8\nconsole.log(greet(\"小明\"));  // 你好，小明",
+      "tip": "箭头函数特别适合在数组方法（map/filter/reduce）中使用，代码会非常简洁。"
+    },
+    {
+      "title": "模板字符串",
+      "content": "用反引号 ` 定义，支持多行和嵌入变量：",
+      "code": "const name = \"小明\";\nconst age = 18;\n\n// 传统拼接（繁琐）\nconsole.log(\"我叫\" + name + \"，今年\" + age + \"岁\");\n\n// 模板字符串（优雅）\nconsole.log(`我叫${name}，今年${age}岁`);\n\n// 支持表达式\nconsole.log(`1 + 1 = ${1 + 1}`);\n\n// 支持多行\nconst html = `\n    <div>\n        <h2>${name}</h2>\n        <p>${age} 岁</p>\n    </div>\n`;\nconsole.log(html);",
+      "tip": "注意是反引号（键盘左上角 Esc 下面那个键），不是单引号或双引号！"
+    },
+    {
+      "title": "解构赋值",
+      "content": "从数组/对象中快速提取值：",
+      "code": "// 数组解构\nconst [a, b, c] = [1, 2, 3];\nconsole.log(a, b, c);  // 1 2 3\n\n// 跳过某些元素\nconst [first, , third] = [10, 20, 30];\nconsole.log(first, third);  // 10 30\n\n// 对象解构（变量名要和属性名一致）\nconst user = { name: \"小明\", age: 18, city: \"北京\" };\nconst { name, age } = user;\nconsole.log(name, age);  // 小明 18\n\n// 起别名\nconst { name: myName } = user;\nconsole.log(myName);  // 小明\n\n// 函数参数解构\nfunction showUser({ name, age }) {\n    console.log(`${name} 今年 ${age} 岁`);\n}\nshowUser(user);",
+      "tip": "解构赋值在处理函数返回的对象、API 响应数据时超级好用！"
+    },
+    {
+      "title": "展开运算符 ...",
+      "content": "三个点 ... 可以「展开」数组或对象：",
+      "code": "// 合并数组\nconst a = [1, 2, 3];\nconst b = [4, 5, 6];\nconst c = [...a, ...b];  // [1,2,3,4,5,6]\n\n// 复制数组（不影响原数组）\nconst copy = [...a];\n\n// 合并对象\nconst base = { color: \"red\", size: 10 };\nconst extra = { name: \"圆\", size: 20 };  // size 会覆盖\nconst merged = { ...base, ...extra };\n// { color: \"red\", size: 20, name: \"圆\" }\n\n// 函数收集剩余参数\nfunction sum(...nums) {\n    return nums.reduce((acc, n) => acc + n, 0);\n}\nconsole.log(sum(1, 2, 3, 4, 5));  // 15",
+      "quiz": "用展开运算符写一个函数 merge(...objects)，合并任意多个对象并返回。"
+    }
+  ]
+}
