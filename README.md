@@ -6,6 +6,12 @@
 
 A safe, self-contained online coding teaching platform. **No Docker, no Redis, no MySQL, no Nginx** - just Python!
 
+##
+
+<p align="center">
+  <a href="README_OFFLINE.md">Offline Deployment Guide (zh_cn)</a> | <a href="README-learning.md">Learning Resource Creation Guide (zh_cn)</a> | <a href="README-plugins.md">Plugin Development Guide (zh_cn)</a> | <a href="README-jk.md">API Technical Documentation (zh_cn)</a>
+</p>
+
 ## Features
 
 ### Students
@@ -48,28 +54,16 @@ Double-click: scripts\start.bat
 ```
 
 **Linux / macOS:**
-```bash
-# Online (with internet)
-pip install -r requirements.txt
-
-# Offline (no internet needed, packages included in repo)
-pip install --no-index --find-links packages/ --find-links packages/linux_x86_64/ -r requirements.txt
-
-# Start server
-python server.py
-```
+<p align="center">
+  <a href="README_OFFLINE.md">Please refer to this document (zh_cn)</a> 
+</p>
 
 Then open **http://localhost:8000**
 
 ### Offline Deployment
-
-The repo includes all Python dependencies in the `packages/` directory. For **air-gapped environments**, simply:
-
-1. Clone the repository
-2. Run `pip install --no-index --find-links packages/ [platform subdir] -r requirements.txt`
-3. Run `python server.py`
-
-No network connection required at any step.
+<p align="center">
+  <a href="README_OFFLINE.md">Please refer to this document (zh_cn)</a> 
+</p>
 
 ### Demo Accounts (password: `password123`)
 
