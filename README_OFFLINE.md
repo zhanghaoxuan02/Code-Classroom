@@ -67,6 +67,10 @@ scripts\start.bat
 
 启动脚本会自动检测 `packages/` 目录并**离线安装**依赖，无需联网。
 
+**如果是Linux，可运行scripts\start.sh用来快速部署**
+
+**如果是Mac OS，建议直接利用命令运行server.py**
+
 ### 4. 学生访问
 
 在浏览器中访问服务器的局域网 IP：
@@ -75,7 +79,7 @@ scripts\start.bat
 http://192.168.x.x:8000
 ```
 
-将 `192.168.x.x` 替换为服务器的实际 IP 地址（可用 `ipconfig` 查看）。
+将 `192.168.x.x` 替换为服务器的实际 IP 地址（BAT脚本里已显示）。
 
 ---
 
