@@ -25,7 +25,7 @@
 | `annotated-types`, `typing-extensions` | 类型注解支持 |
 | `typing-inspection`, `annotated-doc` | FastAPI 依赖 |
 
-> ⚠️ 注意：当前 `packages/` 中的二进制包（如 `pydantic_core`, `httptools`, `watchfiles`, `websockets`, `pyyaml`）是针对 **Windows + Python 3.13 64位** 编译的。如果目标机器是其他平台，需要重新在联网机器上执行：
+> ⚠️ 注意：当前 `packages/` 中的二进制包（如 `pydantic_core`, `httptools`, `watchfiles`, `websockets`, `pyyaml`）主要适用于WIndows+64位平台内置。虽然也内置了Win32平台和Linux x86_64平台的包，但如果出现启动失败，还是需要重新在联网机器上执行：
 > ```bat
 > pip download fastapi "uvicorn[standard]" pydantic python-multipart -d packages/
 > ```
