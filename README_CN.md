@@ -6,6 +6,12 @@
 
 一个安全、自包含的在线编程教学平台。**无需 Docker、Redis、MySQL、Nginx** —— 只需要 Python！
 
+##
+
+<p align="center">
+  <a href="README_OFFLINE.md">离线部署指南</a> | <a href="README-learning.md">学习资源制作指南</a> | <a href="README-plugins.md">插件制作指南</a> | <a href="README-jk.md">接口技术文档</a>
+</p>
+
 ## ✨ 功能特性
 
 ### 🎓 学生端
@@ -49,28 +55,13 @@
 ```
 
 **Linux / macOS：**
-```bash
-# 联网安装
-pip install -r requirements.txt
-
-# 离线安装（无需联网，依赖包已内置在仓库中）
-pip install --no-index --find-links packages/ --find-links packages/linux_x86_64/ -r requirements.txt
-
-# 启动服务
-python server.py
-```
+见README_OFFLINE.md
 
 启动后打开 **http://localhost:8000**
 
 ### 🔌 离线部署
 
-仓库的 `packages/` 目录已包含所有 Python 依赖（.whl 包），**完全断网环境**下也能运行：
-
-1. `git clone https://github.com/zhanghaoxuan02/Code-Classroom.git`
-2. `pip install --no-index --find-links packages/ [平台子目录] -r requirements.txt`
-3. `python server.py`
-
-全过程无需网络连接。
+[README-OFFLINE.md](README-OFFLINE.md)
 
 ### 演示账号（密码均为 `password123`）
 
