@@ -23,14 +23,27 @@ const API = {
         const res = await fetch(`${API.baseUrl}${path}`, opts);
         const json = await res.json();
         if (json.code !== 0 && json.code !== undefined) {
-            // Token 过期
-            if (res.status === 401) {
-                App.logout();
-                throw new Error('登录已过期');
+            // Token 过期：只有当前仍是登录状态才触发 logout，防止多个并发请求重复触发
+            if (res.status === 401 && API.token) {
+                API._handleUnauthorized();
+                throw new Error('登录已过期，请重新登录');
             }
             throw new Error(json.message || '请求失败');
         }
         return json.data;
+    },
+
+    // 防止并发 401 多次触发 logout
+    _unauthorizedTimer: null,
+    _handleUnauthorized() {
+        if (API._unauthorizedTimer) return; // 已经在处理中，忽略
+        API._unauthorizedTimer = setTimeout(() => {
+            API._unauthorizedTimer = null;
+            if (API.token) { // 再次确认还是登录状态才 logout
+                App.logout();
+                showToast('登录已过期，请重新登录', 'error');
+            }
+        }, 100);
     },
 
     get(path, params = {}) {
@@ -186,7 +199,7 @@ const App = {
     editor: null,
 
     // ── 初始化 ──────────────────────────────────────────
-    init() {
+    async init() {
         // 检查 token
         const token = localStorage.getItem('cc_token');
         const userStr = localStorage.getItem('cc_user');
@@ -194,7 +207,22 @@ const App = {
             API.token = token;
             try {
                 App.user = JSON.parse(userStr);
-                App.enterApp();
+                // 验证 token 是否仍然有效（防止用过期 token 进入应用）
+                const me = await fetch('/api/auth/me', {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                }).then(r => r.json()).catch(() => ({ code: -1 }));
+
+                if (me.code === 0) {
+                    App.user = me.data || App.user;
+                    App.enterApp();
+                } else {
+                    // token 无效/过期，清除并显示登录页
+                    localStorage.removeItem('cc_token');
+                    localStorage.removeItem('cc_user');
+                    API.token = null;
+                    App.user = null;
+                    App.showAuth();
+                }
             } catch {
                 App.showAuth();
             }
